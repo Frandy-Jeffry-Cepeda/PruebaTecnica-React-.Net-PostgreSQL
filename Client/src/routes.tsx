@@ -5,7 +5,7 @@ import CreateEmployee from './views/CreateEmployee';
 import Login from './views/Login';
 import { ProtectedRoute } from './Auth/ProtectedRoute';
 import UpdateEmployee from './views/UpdateEmployee';
-import EmployeeHome from './views/EmployeeHome';
+import EmployeeHome, {loader as employeeHomeLoader } from './views/EmployeeHome';
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
           {
             path: '',
             element: <EmployeeHome />,
-            // loader: employeeHomeLoader, // Si necesitas cargar datos
+            loader: employeeHomeLoader, 
           },
         ],
       },
