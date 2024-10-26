@@ -12,7 +12,7 @@ export default function Layout() {
         </div>
       </header>
 
-        <main>
+        <main className='min-h-screen bg-gray-100 '>
             <Outlet />
         </main>
 
