@@ -6,17 +6,23 @@ import { useLoginUser } from "../hooks/useLoginUser";
 
 export default function Login() {
 
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginUserDataSchema>();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginUserDataSchema>();
 
   const { loginUser, loading, loginError } = useLoginUser();
 
+  const onSubmit = (data: LoginUserDataSchema) => {
+    loginUser(data); 
+    setTimeout(() => {
+      reset();          
+    }, 4000);
+};
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form
         className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
         noValidate
-        onSubmit={handleSubmit(loginUser)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex justify-center">
           <h2 className="text-4xl font-bold uppercase py-5">
