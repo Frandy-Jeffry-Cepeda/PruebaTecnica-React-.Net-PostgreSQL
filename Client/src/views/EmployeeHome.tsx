@@ -1,10 +1,12 @@
-import { useLoaderData } from "react-router-dom";
-import { Avatar, Card, CardBody } from "@nextui-org/react";
-import { Bell, Calendar, MessageSquare } from 'lucide-react'
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+import { Bell, Clock, MessageSquare } from 'lucide-react'
 import { EmployeeGetInfo } from "../services/EmployeeServices";
 import { UserSchema } from "../types";
 import { getInitials } from "../utils/initials";
 import { useState } from "react";
+import CardDetail from "../Components/CardDetail";
+import { deleteToken } from "../utils/auth";
 
 export async function loader() {
   
@@ -16,84 +18,56 @@ export async function loader() {
 
 export default function EmployeeHome() {
 
+  const EmployeeInfo = useLoaderData() as UserSchema
+
   const [currentTime, setCurrentTime] = useState(new Date())
 
   setInterval(() => setCurrentTime(new Date()), 60000)
 
-  const EmployeeInfo = useLoaderData() as UserSchema
+  const navigate = useNavigate()
 
+
+  function handleLogout() {
+    deleteToken()
+    navigate('/')
+  }
 
   return (
+
     <>
 
-    <div className="mt-10 mx-auto max-w-6xl p-6 sm:p-10 bg-white shadow-lg">
-      <div className="flex justify-between items-center">
-        <div className="relative">
-          <h3 className="text-2xl">Bienvenido, {EmployeeInfo.fullName}</h3>
-          <div className="relative top-2 text-sm text-gray-500">
-            <h3 className="text-xl">{EmployeeInfo.departamento}</h3>
-          </div>
-        </div>
-        <Avatar size="lg" name={getInitials(`${EmployeeInfo.fullName}`)} />
-      </div>
-
-      <Card className="mt-10">
-      <CardBody>
+      <div className="mt-10 mx-10 sm:mx-10 lg:mx-20 xl:mx-auto max-w-6xl p-6 sm:p-10 bg-white shadow-lg">
         <div className="flex justify-between items-center">
-          <div>
-            <p className="text-xl text-gray-600">Hora actual</p>
-            <p className="text-lg font-semibold">{currentTime.toLocaleTimeString()}</p>
+          <div className="relative">
+            <h3 className="text-xl sm:text-3xl lg:text-3xl">Bienvenido, {EmployeeInfo.fullName}</h3>
+            <div className="relative top-2 text-sm text-gray-500">
+              <h3 className="text-xl lg:text-2xl">{EmployeeInfo.departamento}</h3>
+            </div>
           </div>
-          <div>
-            <Calendar className="h-6 w-6 text-gray-400" /> {/* Cambia a un ícono de reloj, si está disponible */}
-          </div>
+          <Dropdown>
+            <DropdownTrigger>
+                <Avatar className="w-14 h-12 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-xl cursor-pointer" name={getInitials(`${EmployeeInfo.fullName}`)} />
+            </DropdownTrigger>
+                <DropdownMenu aria-label="Static Actions">
+                  <DropdownItem key="edit"><span className=" text-sm xl:text-lg">Editar Perfil</span></DropdownItem>
+                  <DropdownItem className="text-danger" key="logout" color="danger" onClick={handleLogout}><span className=" sm:text-sm xl:text-lg">Log Out</span></DropdownItem>
+              </DropdownMenu>
+          </Dropdown>
         </div>
-      </CardBody>
-    </Card>
 
-     
-        <Card className="mt-5">
-          <CardBody>
+        <CardDetail content={"Hora actual"} content2={currentTime.toLocaleTimeString()}>
+          <Clock className="h-8 w-8 text-gray-400" />
+        </CardDetail>
 
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="text-xl text-gray-600">Mensajes</p>
-                <p className="text-lg font-semibold">3 nuevos</p>
-              </div>
+        <CardDetail content={"Mensajes"} content2={"3 nuevos"}>
+            <MessageSquare className="h-8 w-8 text-gray-400" />
+        </CardDetail>
 
-              <div>
-                <MessageSquare className="h-6 w-6 text-gray-400" />
-              </div>
-            </div>
+        <CardDetail content={"Notificaciones"} content2={"5 sin leer"}>
+          <Bell className="h-8 w-8 text-gray-400" />
+        </CardDetail>
 
-          </CardBody>
-        </Card>
- 
-
-      
-        <Card className="mt-5">
-        <CardBody>
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-xl text-gray-600">Notificaciones</p>
-              <p className="text-lg font-semibold">5 sin leer</p>
-            </div>
-            <div>
-              <Bell className="h-6 w-6 text-gray-400" /> {/* Cambia a un ícono de campana, si está disponible */}
-            </div>
-          </div>
-        </CardBody>
-      </Card>
-
-
-
-
-
-
-
-
-    </div>
-
+      </div>
     </>
   )
 }
