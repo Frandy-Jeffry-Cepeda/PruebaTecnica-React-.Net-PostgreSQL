@@ -6,6 +6,7 @@ import Login from './views/Login';
 import { ProtectedRoute } from './Auth/ProtectedRoute';
 import UpdateEmployee from './views/UpdateEmployee';
 import EmployeeHome, {loader as employeeHomeLoader } from './views/EmployeeHome';
+import UpdateInfoEmployee from './views/UpdateInfoEmployee';
 
 export const router = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'editar-info',
-            element: <UpdateEmployee />,
+            element: <UpdateInfoEmployee />,
           },
         ],
       },
