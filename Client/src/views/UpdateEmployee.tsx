@@ -3,7 +3,6 @@ import { UpdateFormDataSchema } from "../types";
 import { getEmployeeById, updateEmployee } from "../services/Services";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { userSchema } from "../schemas";
 
 export default function EditEmployee() {
 
