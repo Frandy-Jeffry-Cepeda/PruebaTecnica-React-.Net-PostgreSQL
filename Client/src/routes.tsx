@@ -45,6 +45,10 @@ export const router = createBrowserRouter([
             element: <EmployeeHome />,
             loader: employeeHomeLoader, 
           },
+          {
+            path: 'editar-info',
+            element: <UpdateEmployee />,
+          },
         ],
       },
     ],
