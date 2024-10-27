@@ -66,12 +66,12 @@ export default function Login() {
               required: "The Password is required",
               minLength: {
                 value: 6,
-                message: "La contraseña debe tener al menos 8 caracteres, un número y una letra"
+                message: "La contraseña debe tener al menos 6 caracteres, un número y una letra"
               },
-              /*pattern: {
-                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                message: "La contraseña debe tener al menos 8 caracteres, un número y una letra"
-              }*/
+              pattern: {
+                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                message: "La contraseña debe tener al menos 6 caracteres, un número y una letra"
+              }
             })}
           />
           {errors.password && <Error>{errors.password.message}</Error>}  

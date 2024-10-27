@@ -106,10 +106,10 @@ export default function EditEmployee() {
               placeholder="Contraseña"
               {...register("passwordHash", {
                 required: "La contraseña es obligatoria",
-                minLength: { value: 8, message: "La contraseña debe tener al menos 8 caracteres, un número y una letra" },
+                minLength: { value: 6, message: "La contraseña debe tener al menos 6 caracteres, un número y una letra" },
                 pattern: {
-                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                  message: "La contraseña debe tener al menos 8 caracteres, un número y una letra"
+                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                  message: "La contraseña debe tener al menos 6 caracteres, un número y una letra"
                 }
               })}
             />

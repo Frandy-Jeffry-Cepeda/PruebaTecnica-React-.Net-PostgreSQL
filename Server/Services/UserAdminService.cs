@@ -15,7 +15,9 @@ namespace Server.Services
 
         public async Task<List<UserDto>> GetAllEmployeesAsync()
         {
-            var users = await _context.Users.ToListAsync();
+           var users = await _context.Users
+            .OrderByDescending(user => user.Id) 
+            .ToListAsync();
             return users.Select(user => new UserDto
             {
                 Id = user.Id,
