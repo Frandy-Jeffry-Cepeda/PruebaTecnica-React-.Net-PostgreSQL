@@ -1,7 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
-import { getAllEmployee } from "../services/Services";
-import { UserSchema } from "../types";
-import EmployeeDetail from "../Components/EmployeeDetail";
+import { UserSchema } from "../../types";
+import { getAllEmployee } from "../../services/Services";
+import EmployeeDetail from "../../Components/EmployeeDetail";
 
 export async function loader() {
 

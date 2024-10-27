@@ -1,12 +1,12 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import { Bell, Clock, MessageSquare } from 'lucide-react'
-import { EmployeeGetInfo } from "../services/EmployeeServices";
-import { UserSchema } from "../types";
-import { getInitials } from "../utils/initials";
 import { useState } from "react";
-import CardDetail from "../Components/CardDetail";
-import { deleteToken } from "../utils/auth";
+import { EmployeeGetInfo } from "../../services/EmployeeServices";
+import { UserSchema } from "../../types";
+import { deleteToken } from "../../utils/auth";
+import CardDetail from "../../Components/CardDetail";
+import { getInitials } from "../../utils/initials";
 
 export async function loader() {
   
@@ -63,11 +63,11 @@ export default function EmployeeHome() {
           <Clock className="h-8 w-8 text-gray-400" />
         </CardDetail>
 
-        <CardDetail content={"Mensajes"} content2={"3 nuevos"}>
+        <CardDetail content={"Mensajes"} content2={"3 mensajes nuevos"}>
             <MessageSquare className="h-8 w-8 text-gray-400" />
         </CardDetail>
 
-        <CardDetail content={"Notificaciones"} content2={"5 sin leer"}>
+        <CardDetail content={"Notificaciones"} content2={"5 notificaciones no leídas"}>
           <Bell className="h-8 w-8 text-gray-400" />
         </CardDetail>
 

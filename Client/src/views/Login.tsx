@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
-import Error from "../Components/Error";  
-import { LoginUserDataSchema } from "../types";
 import { useLoginUser } from "../hooks/useLoginUser";
+import { LoginUserDataSchema } from "../types";
+import Error from "../Components/Error";
+
 
 
 export default function Login() {
@@ -65,8 +66,12 @@ export default function Login() {
               required: "The Password is required",
               minLength: {
                 value: 8,
-                message: "The Password must be at least 8 characters long"
+                message: "La contraseña debe tener al menos 8 caracteres, un número y una letra"
               },
+              pattern: {
+                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                message: "La contraseña debe tener al menos 8 caracteres, un número y una letra"
+              }
             })}
           />
           {errors.password && <Error>{errors.password.message}</Error>}  

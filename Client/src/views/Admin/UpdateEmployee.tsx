@@ -1,16 +1,30 @@
 import { useForm } from "react-hook-form";
-import { RegisterFormData } from "../types";
-import { createEmployee } from "../services/Services";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { UpdateFormDataSchema } from "../../types";
+import { updateEmployee, getEmployeeById } from "../../services/Services";
 
-export default function Register() {
-  const { handleSubmit, register, formState: { errors } } = useForm<RegisterFormData>();
-  
+export default function EditEmployee() {
+  const { handleSubmit, register, formState: { errors }, setValue } = useForm<UpdateFormDataSchema>();
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const employeeId = parseInt(id || "0");
 
-  const onSubmit = async (data: RegisterFormData) => {
+  useEffect(() => {
+    getEmployeeById(employeeId)
+      .then(employee => {
+        setValue("fullName", employee.fullName);
+        setValue("userName", employee.userName);
+        setValue("email", employee.email);
+        setValue("passwordHash", employee.passwordHash);
+        setValue("departamento", employee.departamento);
+        setValue("role", employee.role);
+      });
+  }, [employeeId, setValue]);
+
+  const onSubmit = async (data: UpdateFormDataSchema) => {
     try {
-      await createEmployee(data);
+      await updateEmployee(employeeId, data);
       navigate('/admin/dashboard');
     } catch (error) {
       console.log(error);
@@ -19,25 +33,26 @@ export default function Register() {
 
   return (
     <>
-      <div className="mt-10 mx-auto max-w-6xl p-6 sm:p-10 bg-white shadow-lg">
-        <div className="flex justify-between">
-          <h2 className="text-4xl font-black text-slate-500">Registrar Empleado</h2>
+      <div className="mt-10 mx-10 sm:mx-20 lg:mx-20 max-w-6xl p-6 sm:p-10 bg-white shadow-lg">
+        <div className="flex items-center justify-between">
+          <h2 className="text-base sm:text-2xl lg:text-4xl font-black text-slate-700">
+            Editar Empleado
+          </h2>
           <Link
             to="/admin/dashboard"
-            className="rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+            className="rounded-md bg-indigo-600 px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base font-bold text-white shadow-sm hover:bg-indigo-500 flex-shrink-0"
           >
             Volver a Dashboard
           </Link>
         </div>
 
-        <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
-
+        <form className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label className="text-gray-800" htmlFor="fullName">Nombre completo:</label>
-            <input 
+            <input
               id="fullName"
               type="text"
-              className="mt-2 block w-full p-3 bg-gray-50"
+              className="mt-2 block w-full p-3 bg-gray-50 border border-gray-300 rounded"
               placeholder="Pedro Enriquez Jímenez"
               {...register("fullName", { required: "El nombre completo es obligatorio" })}
             />
@@ -46,10 +61,10 @@ export default function Register() {
 
           <div className="mb-4">
             <label className="text-gray-800" htmlFor="userName">Username:</label>
-            <input 
+            <input
               id="userName"
               type="text"
-              className="mt-2 block w-full p-3 bg-gray-50"
+              className="mt-2 block w-full p-3 bg-gray-50 border border-gray-300 rounded"
               placeholder="Pedro"
               {...register("userName", { required: "El username es obligatorio" })}
             />
@@ -61,7 +76,7 @@ export default function Register() {
             <input
               id="email"
               type="email"
-              className="mt-2 block w-full p-3 bg-gray-50"
+              className="mt-2 block w-full p-3 bg-gray-50 border border-gray-300 rounded"
               placeholder="user@example.com"
               {...register("email", {
                 required: "El email es obligatorio",
@@ -79,26 +94,25 @@ export default function Register() {
             <input
               id="password"
               type="password"
-              className="mt-2 block w-full p-3 bg-gray-50"
+              className="mt-2 block w-full p-3 bg-gray-50 border border-gray-300 rounded"
               placeholder="Contraseña"
-              {...register("password", {
+              {...register("passwordHash", {
                 required: "La contraseña es obligatoria",
-                minLength: { value: 6, message: "La contraseña debe tener al menos 6 caracteres" },
-              })} 
+                minLength: { value: 8, message: "La contraseña debe tener al menos 8 caracteres, un número y una letra" },
+                pattern: {
+                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                  message: "La contraseña debe tener al menos 8 caracteres, un número y una letra"
+                }
+              })}
             />
-            {errors.password && <p className="text-red-600">{errors.password.message}</p>}
+            {errors.passwordHash && <p className="text-red-600">{errors.passwordHash.message}</p>}
           </div>
-
-          {/* TODO -  pattern: {
-            value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-            message: "La contraseña debe tener al menos 8 caracteres, un número y una letra"*/
-          }
 
           <div className="mb-4">
             <label className="text-gray-800" htmlFor="role">Rol:</label>
             <select
               id="role"
-              className="mt-2 block w-full p-3 bg-gray-50"
+              className="mt-2 block w-full p-3 bg-gray-50 border border-gray-300 rounded"
               {...register("role", { required: "El rol es obligatorio" })}
             >
               <option value="">Selecciona un rol</option>
@@ -113,18 +127,20 @@ export default function Register() {
             <input
               id="departamento"
               type="text"
-              className="mt-2 block w-full p-3 bg-gray-50"
+              className="mt-2 block w-full p-3 bg-gray-50 border border-gray-300 rounded"
               placeholder="IT, Finanzas, etc."
               {...register("departamento", { required: "El departamento es obligatorio" })}
             />
             {errors.departamento && <p className="text-red-600">{errors.departamento.message}</p>}
           </div>
 
-          <input
-            type="submit"
-            className="mt-5 w-full bg-indigo-600 p-2 text-white font-bold text-lg cursor-pointer rounded"
-            value="Registrar Empleado"
-          />
+          <div className="md:col-span-2">
+            <input
+              type="submit"
+              className="w-full flex justify-center bg-indigo-700 hover:bg-indigo-800 p-3 text-white font-bold text-lg cursor-pointer rounded"
+              value="Actualizar Empleado"
+            />
+          </div>
         </form>
       </div>
     </>
