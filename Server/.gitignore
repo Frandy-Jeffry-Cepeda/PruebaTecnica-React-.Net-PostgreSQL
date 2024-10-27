@@ -39,5 +39,3 @@ Migrations/
 # Archivo de metadatos
 server.metadata.v8.bin
 
-# Env
-.env
