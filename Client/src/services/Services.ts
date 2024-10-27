@@ -45,6 +45,8 @@ export async function getAllEmployee() {
       });
   
       const result = userArraySchema.safeParse(response.data);
+
+      console.log(result)
   
       if (result.success) {
 
@@ -91,6 +93,7 @@ export async function getAllEmployee() {
           Authorization: `Bearer ${token}`,
         },
       });
+      
   
       return response.data;
 
