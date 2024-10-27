@@ -3,6 +3,7 @@ import { UserSchema } from "../../types";
 import { getAllEmployee } from "../../services/Services";
 import EmployeeDetail from "../../Components/EmployeeDetail";
 
+
 export async function loader() {
 
    const employees = await getAllEmployee()

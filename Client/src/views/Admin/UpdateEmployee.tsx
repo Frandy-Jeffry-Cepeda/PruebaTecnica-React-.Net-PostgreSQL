@@ -3,12 +3,16 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { UpdateFormDataSchema } from "../../types";
 import { updateEmployee, getEmployeeById } from "../../services/Services";
+import { useAppStore } from "../../stores/useAppStore";
 
 export default function EditEmployee() {
+
   const { handleSubmit, register, formState: { errors }, setValue } = useForm<UpdateFormDataSchema>();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const employeeId = parseInt(id || "0");
+
+  const showNotification = useAppStore((state) => state.showNotification)
 
   useEffect(() => {
     getEmployeeById(employeeId)
@@ -26,6 +30,10 @@ export default function EditEmployee() {
     try {
       await updateEmployee(employeeId, data);
       navigate('/admin/dashboard');
+      showNotification({
+        text: 'Empleado actualizado con éxito!',
+        error:false
+      })
     } catch (error) {
       console.log(error);
     }

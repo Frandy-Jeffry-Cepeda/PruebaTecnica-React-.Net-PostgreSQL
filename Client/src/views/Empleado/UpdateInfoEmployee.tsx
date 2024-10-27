@@ -3,12 +3,15 @@ import { DataEmployee, UpdateFormDataSchema } from "../../types";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { EmployeeGetInfoForUpdate, EmployeeUpdateInfo } from "../../services/EmployeeServices";
+import { useAppStore } from "../../stores/useAppStore";
 
 export default function UpdateInfoEmployee() {
   const { handleSubmit, register, formState: { errors }, setValue } = useForm<UpdateFormDataSchema>();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const employeeId = parseInt(id || "0");
+
+  const showNotification = useAppStore((state) => state.showNotification)
 
   useEffect(() => {
     async function fetchEmployeeData() {
@@ -30,6 +33,10 @@ export default function UpdateInfoEmployee() {
     try {
       await EmployeeUpdateInfo(employeeId, dataEmployee);
       navigate('/user/home/info');
+      showNotification({
+        text: 'Información actualizada con éxito!',
+        error:false
+      })
     } catch (error) {
       console.log("Error updating employee:", error);
     }
