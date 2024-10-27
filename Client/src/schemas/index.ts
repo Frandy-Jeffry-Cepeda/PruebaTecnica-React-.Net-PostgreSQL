@@ -15,6 +15,12 @@ export const userSchema = z.object({
     departamento: z.string()
 })
 
+export const dataEmployee = z.object({
+    fullName: z.string(),
+    userName: z.string(),
+    email: z.string(),
+})
+
 export const registerFormDataSchema = z.object({
     fullName: z.string(),
     userName: z.string(),
