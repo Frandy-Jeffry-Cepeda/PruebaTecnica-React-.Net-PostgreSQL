@@ -10,10 +10,10 @@ public class UpdateUserDto
     [Required(ErrorMessage = "El email es requerido")]
     public string Email { get; set; }
 
+    [MinLength(8, ErrorMessage = "La contraseña debe tener al menos 8 caracteres")]
+    public string PasswordHash { get; set; }
     [Required(ErrorMessage = "El departamento es requerido")]
     public string Departamento { get; set; }
     public string Role { get; set; }
 
-    [MinLength(8, ErrorMessage = "La contraseña debe tener al menos 8 caracteres")]
-    public string PasswordHash { get; set; }
 }

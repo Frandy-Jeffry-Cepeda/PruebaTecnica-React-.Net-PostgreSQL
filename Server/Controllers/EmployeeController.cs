@@ -2,7 +2,6 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.Services;
-using System.Threading.Tasks;
 
 namespace Server.Controllers
 {
@@ -34,8 +33,8 @@ namespace Server.Controllers
             return Ok(employee);
         }
 
-         [HttpGet("Get-Employee-Data-ForUpdate")]
-            public async Task<IActionResult> GetDataForUpdate()
+        [HttpGet("Get-Employee-Data-ForUpdate")]
+            public async Task<IActionResult> GetUserForUpdate()
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out int parsedUserId))
