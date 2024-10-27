@@ -32,6 +32,11 @@ export default function EmployeeHome() {
     navigate('/')
   }
 
+  function handleNavigate() {
+    navigate(`info`)
+    console.log("hiciste click")
+  }
+
   return (
 
     <>
@@ -49,7 +54,7 @@ export default function EmployeeHome() {
                 <Avatar className="w-14 h-12 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-xl cursor-pointer" name={getInitials(`${EmployeeInfo.fullName}`)} />
             </DropdownTrigger>
                 <DropdownMenu aria-label="Static Actions">
-                  <DropdownItem key="edit"><span className=" text-sm xl:text-lg">Editar Perfil</span></DropdownItem>
+                  <DropdownItem key="edit"><span className=" text-sm xl:text-lg" onClick={handleNavigate}>Ver Perfil</span></DropdownItem>
                   <DropdownItem className="text-danger" key="logout" color="danger" onClick={handleLogout}><span className=" sm:text-sm xl:text-lg">Log Out</span></DropdownItem>
               </DropdownMenu>
           </Dropdown>
