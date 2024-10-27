@@ -23,7 +23,7 @@ export default function ModalC({ employee, isOpen, onClose }: ModalCProps) {
       onClose();
       if(employee.id === 1) {
         showNotification({
-          text: 'Este Admin no se puede editar!',
+          text: 'Este Admin no se puede eliminar!',
           error:true
         })
       } else {

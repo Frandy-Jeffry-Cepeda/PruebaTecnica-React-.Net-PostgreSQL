@@ -33,7 +33,7 @@ export default function EditEmployee() {
       navigate('/admin/dashboard');
       if(employeeId === 1) {
         showNotification({
-          text: 'Este Admin no se puede eliminar!',
+          text: 'Este Admin no se puede editar!',
           error:true
         })
       } else {
