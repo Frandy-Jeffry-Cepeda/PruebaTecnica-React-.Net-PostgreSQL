@@ -1,7 +1,8 @@
-import { Link, useLoaderData } from "react-router-dom";
-import { UserSchema } from "../../types";
-import { getAllEmployee } from "../../services/Services";
 import EmployeeDetail from "../../Components/EmployeeDetail";
+import { UserSchema } from "../../types";
+import { getAllEmployee } from "../../services/AdminServices";
+
+import { Link, useLoaderData } from "react-router-dom";
 
 
 export async function loader() {
@@ -36,7 +37,7 @@ export default function Dashboard() {
           <thead className="bg-slate-800 text-white">
             <tr>
               <th className="p-3 text-left">Empleado</th>
-              <th className="p-3 text-left">Role</th>
+              <th className="p-3 text-left">Rol</th>
               <th className="p-3 text-left">Departamento</th>
               <th className="p-3 text-left">Correo</th>
               <th className="p-3 text-left">Acciones</th>

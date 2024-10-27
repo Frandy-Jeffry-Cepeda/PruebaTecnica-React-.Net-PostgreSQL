@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { LoginUserDataSchema } from '../types'; 
-import { login } from '../services/Services';
+import { login } from '../services/AdminServices';
+
+import { useNavigate } from 'react-router-dom';
 
 export const useLoginUser = () => {
 

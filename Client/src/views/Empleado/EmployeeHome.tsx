@@ -1,12 +1,14 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
-import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
-import { Bell, Clock, MessageSquare } from 'lucide-react'
-import { useState } from "react";
 import { EmployeeGetInfo } from "../../services/EmployeeServices";
 import { UserSchema } from "../../types";
 import { deleteToken } from "../../utils/auth";
 import CardDetail from "../../Components/CardDetail";
 import { getInitials } from "../../utils/initials";
+import { useState } from "react";
+
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+import { Bell, Clock, MessageSquare } from 'lucide-react'
+
 
 export async function loader() {
   

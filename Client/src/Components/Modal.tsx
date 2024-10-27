@@ -1,8 +1,9 @@
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from "@nextui-org/react";
-import { useNavigate } from "react-router-dom";
 import { UserSchema } from "../types";
-import { deleteEmployee } from "../services/Services";
+import { deleteEmployee } from "../services/AdminServices";
 import { useAppStore } from "../stores/useAppStore";
+
+import { useNavigate } from "react-router-dom";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from "@nextui-org/react";
 
 type ModalCProps = {
   employee: UserSchema;
@@ -20,10 +21,17 @@ export default function ModalC({ employee, isOpen, onClose }: ModalCProps) {
       await deleteEmployee(employee.id);
       navigate(""); 
       onClose();
-      showNotification({
-        text: 'Empleado eliminado con exito!',
-        error:false
-      })
+      if(employee.id === 1) {
+        showNotification({
+          text: 'Este Admin no se puede editar!',
+          error:true
+        })
+      } else {
+        showNotification({
+          text: 'Empleado eliminado con éxito!',
+          error:false
+        })
+      }
     } catch (error) {
       console.log(error);
     }

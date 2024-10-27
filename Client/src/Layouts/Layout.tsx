@@ -1,7 +1,8 @@
-import { Outlet, useNavigate } from 'react-router-dom'
 import Notification from '../Components/Notification'
-import { LogOutIcon } from 'lucide-react'
 import { deleteToken } from '../utils/auth'
+
+import { LogOutIcon } from 'lucide-react'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 export default function Layout() {
 

@@ -1,6 +1,7 @@
-import axios from 'axios'
 import { getToken } from '../utils/auth'
 import { DataEmployee, UserSchema } from '../types';
+
+import axios from 'axios'
 
 export async function EmployeeGetInfo() {
     try {

@@ -1,9 +1,10 @@
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
-import { Avatar, Button, Card, CardBody, CardFooter } from "@nextui-org/react";
-import { Briefcase, Edit, Mail, MapPin } from "lucide-react";
 import { EmployeeGetInfo } from "../../services/EmployeeServices";
 import { UserSchema } from "../../types";
 import { getInitials } from "../../utils/initials";
+
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Avatar, Button, Card, CardBody, CardFooter } from "@nextui-org/react";
+import { Briefcase, Edit, Mail, MapPin } from "lucide-react";
 
 
 export async function loader() {

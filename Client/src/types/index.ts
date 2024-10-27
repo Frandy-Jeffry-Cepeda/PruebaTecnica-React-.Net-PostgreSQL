@@ -6,15 +6,6 @@ export type LoginUserData = {
     password: string
 }
 
-export type RegisterFormData = {
-    email: string;
-    password: string;
-    fullName: string;
-    userName: string;
-    role: string;
-    departamento: string;
-};
-
 export enum UserRole {
     Admin = 'Admin',
     Employee = 'Employee',

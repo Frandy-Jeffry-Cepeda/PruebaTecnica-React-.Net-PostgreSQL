@@ -67,6 +67,11 @@ namespace Server.Services
 
         public async Task<bool> UpdateEmployeeAsync(int id, UpdateUserDto updateUserDto)
         {
+            if (id == 1)
+            {
+                throw new InvalidOperationException("El usuario administrador principal no puede ser modificado.");
+            }
+
             var user = await _context.Users.FindAsync(id);
             if (user == null) return false;
 
@@ -88,6 +93,11 @@ namespace Server.Services
 
         public async Task<bool> DeleteEmployeeAsync(int id)
         {
+            if (id == 1)
+            {
+                throw new InvalidOperationException("El usuario administrador principal no puede ser eliminado.");
+            }
+
             var user = await _context.Users.FindAsync(id);
             if (user == null) return false;
 

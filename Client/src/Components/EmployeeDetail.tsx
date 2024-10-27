@@ -1,9 +1,8 @@
-import { UserSchema } from "../types";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { UserSchema } from "../types";
 import ModalC from "./Modal";
-import { useAppStore } from "../stores/useAppStore";
 
+import { useNavigate } from "react-router-dom";
 
 type EmployeDetailProps = {
   employee: UserSchema;
@@ -14,8 +13,6 @@ export default function EmployeeDetail({ employee }: EmployeDetailProps) {
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showNotification = useAppStore((state) => state.showNotification)
 
   const handleOpenModal = () => {
     setIsModalOpen(true);

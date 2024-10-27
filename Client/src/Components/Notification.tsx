@@ -1,14 +1,13 @@
-import { Fragment } from 'react'
-import { CheckCircle, XCircle, X } from 'lucide-react';
-import { Transition } from '@headlessui/react'
+import { Fragment } from 'react';
 import { useAppStore } from '../stores/useAppStore';
-
+import { CheckCircle, XCircle } from 'lucide-react';
+import { Transition } from '@headlessui/react';
 
 export default function Notification() {
 
-  const notificacion = useAppStore((state) => state.notification)
+  const notificacion = useAppStore((state) => state.notification);
   
-  const hideNotification = useAppStore((state) => state.hideNotification)
+  const hideNotification = useAppStore((state) => state.hideNotification);
 
   return (
     <div
@@ -30,7 +29,11 @@ export default function Notification() {
             <div className="p-4">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  {notificacion.error ? (<XCircle className='h-6 w-6 text-red-400' aria-hidden='true'/>) : (<CheckCircle className='h-6 w-6 text-green-400' aria-hidden='true'/>)}
+                  {notificacion.error ? (
+                    <XCircle className='h-6 w-6 text-red-400' aria-hidden='true' />
+                  ) : (
+                    <CheckCircle className='h-6 w-6 text-green-400' aria-hidden='true' />
+                  )}
                 </div>
                 <div className="ml-3 w-0 flex-1 pt-0.5">
                   <p className="text-sm font-medium text-gray-900">Notificación</p>
@@ -42,7 +45,7 @@ export default function Notification() {
                   <button
                     type="button"
                     className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={hideNotification}
+                    onClick={hideNotification} 
                   >
                     <span className="sr-only">Cerrar</span>
                     <XCircle className="h-5 w-5" aria-hidden="true" />
@@ -54,5 +57,5 @@ export default function Notification() {
         </Transition>
       </div>
     </div>
-  )
+  );
 }

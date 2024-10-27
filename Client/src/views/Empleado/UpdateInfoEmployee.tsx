@@ -1,9 +1,10 @@
-import { useForm } from "react-hook-form";
-import { DataEmployee, UpdateFormDataSchema } from "../../types";
-import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { EmployeeGetInfoForUpdate, EmployeeUpdateInfo } from "../../services/EmployeeServices";
 import { useAppStore } from "../../stores/useAppStore";
+import { DataEmployee, UpdateFormDataSchema } from "../../types";
+
+import { useForm } from "react-hook-form";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function UpdateInfoEmployee() {
   const { handleSubmit, register, formState: { errors }, setValue } = useForm<UpdateFormDataSchema>();

@@ -1,9 +1,10 @@
+import { useEffect } from "react";
+import { useAppStore } from "../../stores/useAppStore";
+import { updateEmployee, getEmployeeById } from "../../services/AdminServices";
+import { UpdateFormDataSchema } from "../../types";
+
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { UpdateFormDataSchema } from "../../types";
-import { updateEmployee, getEmployeeById } from "../../services/Services";
-import { useAppStore } from "../../stores/useAppStore";
 
 export default function EditEmployee() {
 
@@ -30,10 +31,17 @@ export default function EditEmployee() {
     try {
       await updateEmployee(employeeId, data);
       navigate('/admin/dashboard');
-      showNotification({
-        text: 'Empleado actualizado con éxito!',
-        error:false
-      })
+      if(employeeId === 1) {
+        showNotification({
+          text: 'Este Admin no se puede eliminar!',
+          error:true
+        })
+      } else {
+        showNotification({
+          text: 'Empleado actualizado con éxito!',
+          error:false
+        })
+      }
     } catch (error) {
       console.log(error);
     }
@@ -107,10 +115,6 @@ export default function EditEmployee() {
               {...register("passwordHash", {
                 required: "La contraseña es obligatoria",
                 minLength: { value: 6, message: "La contraseña debe tener al menos 6 caracteres, un número y una letra" },
-                pattern: {
-                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-                  message: "La contraseña debe tener al menos 6 caracteres, un número y una letra"
-                }
               })}
             />
             {errors.passwordHash && <p className="text-red-600">{errors.passwordHash.message}</p>}

@@ -1,18 +1,19 @@
-import { useForm } from "react-hook-form";
-import { RegisterFormData } from "../../types";
-import { createEmployee } from "../../services/Services";
-import { Link, useNavigate } from "react-router-dom";
+import { RegisterFormDataSchema } from "../../types";
+import { createEmployee } from "../../services/AdminServices";
 import { useAppStore } from "../../stores/useAppStore";
+
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
 
-  const { handleSubmit, register, formState: { errors } } = useForm<RegisterFormData>();
+  const { handleSubmit, register, formState: { errors } } = useForm<RegisterFormDataSchema>();
   
   const navigate = useNavigate();
 
   const showNotification = useAppStore((state) => state.showNotification)
 
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = async (data: RegisterFormDataSchema) => {
     try {
       await createEmployee(data);
       navigate('/admin/dashboard');

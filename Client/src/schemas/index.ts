@@ -1,5 +1,6 @@
-import { z } from "zod";
 import { UserRole } from "../types";
+
+import { z } from "zod";
 
 export const loginSchema = z.object({
     email: z.string().email("Debe ser un email válido"),
