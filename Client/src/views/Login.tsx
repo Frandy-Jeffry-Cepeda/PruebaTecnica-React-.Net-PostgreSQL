@@ -64,8 +64,8 @@ export default function Login() {
             {...register("password", {
               required: "The Password is required",
               minLength: {
-                value: 6,
-                message: "The Password must be at least 6 characters long"
+                value: 8,
+                message: "The Password must be at least 8 characters long"
               },
             })}
           />

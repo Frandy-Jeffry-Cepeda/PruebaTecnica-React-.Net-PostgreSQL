@@ -27,11 +27,12 @@ export default function EditEmployee() {
   }, [employeeId]);
 
   const onSubmit = async (data: UpdateFormDataSchema) => {
+
     try {
-        await updateEmployee(employeeId, data);
-        navigate('/admin/dashboard'); 
+      await updateEmployee(employeeId, data); 
+      navigate('/admin/dashboard');
     } catch (error) {
-        console.error("Error al actualizar el empleado:", error);
+      console.log(error);
     }
   };
 
@@ -100,7 +101,7 @@ export default function EditEmployee() {
               placeholder="Contraseña"
               {...register("passwordHash", {
                 required: "La contraseña es obligatoria",
-                minLength: { value: 6, message: "La contraseña debe tener al menos 6 caracteres" },
+                minLength: { value: 8, message: "La contraseña debe tener al menos 8 caracteres" },
               })}
             />
             {errors.passwordHash && <p className="text-red-600">{errors.passwordHash.message}</p>}

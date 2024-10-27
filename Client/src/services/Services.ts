@@ -106,23 +106,24 @@ export async function getAllEmployee() {
 
   export async function updateEmployee(id: UserSchema['id'], updatedData: UpdateFormDataSchema) {
     try {
-        const token = getToken();
 
-        const url = `http://localhost:5057/api/Admin/Update-Employee/${id}`;
-        
-        const response = await axios.put(url, updatedData, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
-        });
+      const token = getToken()
+  
+      const url = `http://localhost:5057/api/Admin/Update-Employee/${id}`;
+  
+      const response = await axios.put(url, updatedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+  
+      return response.data;
 
-        return response.data;
     } catch (error) {
-        console.error("Error al actualizar el empleado:", error);
-        throw error;
+      console.log(error)
     }
-}
+  }
 
   export async function deleteEmployee(id: UserSchema['id']) {
     try {
