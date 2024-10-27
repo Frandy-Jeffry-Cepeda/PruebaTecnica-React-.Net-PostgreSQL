@@ -18,7 +18,7 @@ export async function login(data: LoginUserDataSchema) {
 
     try {
 
-        const url = "http://localhost:5057/api/Auth/login";
+        const url = `${import.meta.env.VITE_API_URL}/api/Auth/login`;
 
         const response = await axios.post(url, result.data);  
 
@@ -36,7 +36,7 @@ export async function getAllEmployee() {
    
       const token = getToken()
   
-      const url = "http://localhost:5057/api/Admin/Get-All-Employee";
+      const url = `${import.meta.env.VITE_API_URL}/api/Admin/Get-All-Employee`;
   
       const response = await axios.get(url, {
         headers: {
@@ -45,8 +45,6 @@ export async function getAllEmployee() {
       });
   
       const result = userArraySchema.safeParse(response.data);
-
-      console.log(result)
   
       if (result.success) {
 
@@ -64,15 +62,13 @@ export async function getAllEmployee() {
         
       const token = getToken()
 
-        const url = `http://localhost:5057/api/Admin/Get-Employee/${id}`;
+        const url = `${import.meta.env.VITE_API_URL}/api/Admin/Get-Employee/${id}`;
 
         const response = await axios.get(url, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
-
-        console.log(response.data)
         
         return response.data;
 
@@ -87,7 +83,7 @@ export async function getAllEmployee() {
 
       const token = getToken()
   
-      const url = 'http://localhost:5057/api/Admin/Create-Employee';
+      const url = `${import.meta.env.VITE_API_URL}/api/Admin/Create-Employee`;
   
       const response = await axios.post(url, employeeData, {
         headers: {
@@ -109,7 +105,7 @@ export async function getAllEmployee() {
 
       const token = getToken()
   
-      const url = `http://localhost:5057/api/Admin/Update-Employee/${id}`;
+      const url = `${import.meta.env.VITE_API_URL}/api/Admin/Update-Employee/${id}`;
   
       const response = await axios.put(url, updatedData, {
         headers: {
@@ -130,7 +126,7 @@ export async function getAllEmployee() {
  
       const token = getToken()
 
-      const url = `http://localhost:5057/api/Admin/Delete-Employee/${id}`;
+      const url = `${import.meta.env.VITE_API_URL}/api/Admin/Delete-Employee/${id}`;
   
       await axios.delete(url, {
         headers: {
