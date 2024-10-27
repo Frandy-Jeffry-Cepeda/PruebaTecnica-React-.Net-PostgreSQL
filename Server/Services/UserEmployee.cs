@@ -29,17 +29,29 @@ namespace Server.Services
             };
         }
 
-        public async Task<bool> UpdateEmployeeAsync(int userId, UpdateUserDto updateUserDto)
+        public async Task<UserDto> GetEmployeeInfoForUpdate(int userId)
         {
             var user = await _context.Users.FindAsync(userId);
+            if (user == null) return null;
+
+            return new UserDto
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                UserName = user.UserName,
+                Email = user.Email,
+            };
+        }
+
+        public async Task<bool> UpdateEmployeeAsync(int id, EmployeeDto employeeDto)
+        {
+            var user = await _context.Users.FindAsync(id);
             if (user == null) return false;
 
-            user.FullName = updateUserDto.FullName;
-            user.UserName = updateUserDto.UserName;
-            user.Email = updateUserDto.Email;
-            user.Departamento = updateUserDto.Departamento;
-            
-            // No permitir cambiar rol ni contraseña en UserController
+            user.FullName = employeeDto.FullName;
+            user.UserName = employeeDto.UserName;
+            user.Email = employeeDto.Email;
+
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
             return true;
