@@ -7,6 +7,7 @@ import { ProtectedRoute } from './Auth/ProtectedRoute';
 import UpdateEmployee from './views/UpdateEmployee';
 import EmployeeHome, {loader as employeeHomeLoader } from './views/EmployeeHome';
 import UpdateInfoEmployee from './views/UpdateInfoEmployee';
+import InfoEmployee, { loader as infoPersonalEmployee } from './views/InfoEmployee';
 
 export const router = createBrowserRouter([
   {
@@ -47,11 +48,16 @@ export const router = createBrowserRouter([
             loader: employeeHomeLoader, 
           },
           {
-            path: 'editar-info',
-            element: <UpdateInfoEmployee />,
+            path: 'info',
+            element: <InfoEmployee />,
+            loader: infoPersonalEmployee
           },
+          {
+            path: 'editar/:id',  // Ahora directamente bajo 'user/home'
+            element: <UpdateInfoEmployee />,
+          }
         ],
-      },
+      }
     ],
   },
 ]);
