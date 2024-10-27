@@ -3,6 +3,7 @@ import { UpdateFormDataSchema } from "../types";
 import { getEmployeeById, updateEmployee } from "../services/Services";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { EmployeeGetInfo } from "../services/EmployeeServices";
 
 export default function EditEmployee() {
 
@@ -16,6 +17,7 @@ export default function EditEmployee() {
 
   useEffect(() => {
        getEmployeeById(employeeId)
+       EmployeeGetInfo()
       .then(employee => {
        setValue("fullName", employee.fullName);
        setValue("userName", employee.userName);
