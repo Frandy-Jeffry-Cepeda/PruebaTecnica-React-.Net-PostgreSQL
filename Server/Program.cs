@@ -5,14 +5,48 @@ using Server.Data;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Server.Services;
+using DotNetEnv;
+using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// Cargar las variables del archivo .env
+Env.Load();
+
+// Obtener la cadena de conexión desde las variables de entorno
+
+// Obtener la cadena de conexión desde la variable de entorno CONNECTION_STRING
+string databaseUrl = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+
+// Convertir la URL de conexión a un formato que Npgsql pueda interpretar
+string connectionString = ConvertPostgresUrlToConnectionString(databaseUrl);
+
+static string ConvertPostgresUrlToConnectionString(string url)
+{
+    var uri = new Uri(url);
+    var userInfo = uri.UserInfo.Split(':');
+
+  return new NpgsqlConnectionStringBuilder
+    {
+        Host = uri.Host,
+        Port = uri.IsDefaultPort ? 5432 : uri.Port, // Establecer 5432 si no hay puerto definido
+        Username = userInfo[0],
+        Password = userInfo[1],
+        Database = uri.AbsolutePath.Trim('/'), // Eliminar cualquier barra inicial
+        SslMode = SslMode.Prefer // Opcional: usar SSL si está disponible
+    }.ToString();
+}
+
+Console.WriteLine($"Cadena de conexión utilizada: {connectionString}");
+
 // Configuración de Entity Framework y DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
+
+
+
 
 // Configurar CORS
 builder.Services.AddCors(options =>
