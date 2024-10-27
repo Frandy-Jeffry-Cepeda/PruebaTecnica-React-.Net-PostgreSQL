@@ -7,7 +7,7 @@ export async function EmployeeGetInfo() {
     try {
         const token = getToken();
 
-        const url = `${import.meta.env.VITE_API_URL}/api/User/Get-Employee`;
+        const url = `http://localhost:5057/api/User/Get-Employee`;
     
         const response = await axios(url, {
             headers: {
@@ -26,7 +26,7 @@ export async function EmployeeGetInfo() {
 export async function EmployeeGetInfoForUpdate() {
   try {
       const token = getToken();
-      const url = `${import.meta.env.VITE_API_URL}/api/User/Get-Employee-Data-ForUpdate`;
+      const url = `http://localhost:5057/api/User/Get-Employee-Data-ForUpdate`;
   
       const response = await axios(url, {
           headers: {
@@ -45,7 +45,7 @@ export async function EmployeeGetInfoForUpdate() {
 export async function EmployeeUpdateInfo(id: UserSchema["id"], updatedData: DataEmployee) {
   try {
     const token = getToken();
-    const url = `${import.meta.env.VITE_API_URL}/api/User/Update-Employee/${id}`;
+    const url = `http://localhost:5057/api/User/Update-Employee/${id}`;
 
     const response = await axios.put(url, updatedData, {
       headers: {
