@@ -49,7 +49,7 @@ export default function InfoEmployee() {
         <div className="w-full space-y-3">
           <div className="flex items-center gap-2">
             <Mail className="text-default-500" size={18} />
-            <span>juan.perez@ejemplo.com</span>
+            <span>{EmployeeInfo.email}</span>
           </div>
           <div className="flex items-center gap-2">
             <MapPin className="text-default-500" size={18} />
@@ -68,11 +68,7 @@ export default function InfoEmployee() {
           variant="bordered"
           startContent={<Edit size={18} />}
           onClick={() => {
-            if (EmployeeInfo && EmployeeInfo.id) {
-                navigate(`editar/${EmployeeInfo.id}`); // Usar la ruta correcta
-            } else {
-                console.error("ID de empleado no encontrado.");
-            }
+            navigate(`/user/home/editar/${EmployeeInfo.id}`);
           }}
         >
           Editar Perfil

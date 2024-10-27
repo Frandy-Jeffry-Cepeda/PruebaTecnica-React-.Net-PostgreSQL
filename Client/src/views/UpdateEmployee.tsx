@@ -3,7 +3,6 @@ import { UpdateFormDataSchema } from "../types";
 import { getEmployeeById, updateEmployee } from "../services/Services";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { EmployeeGetInfo } from "../services/EmployeeServices";
 
 export default function EditEmployee() {
 
@@ -17,7 +16,6 @@ export default function EditEmployee() {
 
   useEffect(() => {
        getEmployeeById(employeeId)
-       EmployeeGetInfo()
       .then(employee => {
        setValue("fullName", employee.fullName);
        setValue("userName", employee.userName);
@@ -29,12 +27,11 @@ export default function EditEmployee() {
   }, [employeeId]);
 
   const onSubmit = async (data: UpdateFormDataSchema) => {
-
     try {
-      await updateEmployee(employeeId, data); 
-      navigate('/admin/dashboard');
+        await updateEmployee(employeeId, data);
+        navigate('/admin/dashboard'); 
     } catch (error) {
-      console.log(error);
+        console.error("Error al actualizar el empleado:", error);
     }
   };
 

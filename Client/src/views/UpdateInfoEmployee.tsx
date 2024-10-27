@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
-import { DataEmployee, UpdateFormDataSchema, UserSchema } from "../types";
+import { DataEmployee, UpdateFormDataSchema } from "../types";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { EmployeeGetInfoForUpdate, EmployeeUpdateInfo } from "../services/EmployeeServices";
 
 export default function UpdateInfoEmployee() {
+  
   const { handleSubmit, register, formState: { errors }, setValue } = useForm<UpdateFormDataSchema>();
   const navigate = useNavigate();
 
@@ -33,7 +34,7 @@ export default function UpdateInfoEmployee() {
   const onSubmit = async (dataEmployee: DataEmployee) => {
     try {
       await EmployeeUpdateInfo(employeeId, dataEmployee);
-      navigate('/user/home');
+      navigate('/user/home/info');
     } catch (error) {
       console.log("Error updating employee:", error);
     }
@@ -48,7 +49,7 @@ export default function UpdateInfoEmployee() {
             to="/user/home"
             className="rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
           >
-            Volver a Home
+            Volver a Info
           </Link>
         </div>
 

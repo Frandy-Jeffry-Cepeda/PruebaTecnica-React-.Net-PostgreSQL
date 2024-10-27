@@ -34,7 +34,6 @@ export default function EmployeeHome() {
 
   function handleNavigate() {
     navigate(`info`)
-    console.log("hiciste click")
   }
 
   return (
