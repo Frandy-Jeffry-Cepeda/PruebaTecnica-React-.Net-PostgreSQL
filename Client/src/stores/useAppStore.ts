@@ -1,4 +1,3 @@
-import { TrendingUpDownIcon } from 'lucide-react';
 import { create } from 'zustand';
 
 type Notification = {
@@ -29,15 +28,14 @@ export const useAppStore = create<NotificationStore>((set) => ({
         });
 
         
-            setTimeout(() => {
-                set({
-                    notification: {
-                        text: '',
-                        error: false,
-                        show: false,
-                    },
-                });
-            }, 5000);
+        setTimeout(() => {
+            set((state) => ({
+              notification: {
+                ...state.notification,
+                show: false, 
+              },
+            }));
+          }, 5000);
 
     },
     hideNotification: () => {
