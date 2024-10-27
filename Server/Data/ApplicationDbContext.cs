@@ -32,14 +32,15 @@ namespace Server.Data
                 entity.Property(u => u.PasswordHash).IsRequired();
             });
 
-            
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword("Admin123");
+
             var adminUser = new User
             {
                 Id = 1, 
-                FullName = "Frandy Jeffry Cepeda",
-                UserName = "Frandy Jeffry",
-                Email = "Frandy1906@gmail.com",
-                PasswordHash = "ContraseñaSegura123!",
+                FullName = "Admin",
+                UserName = "Admin",
+                Email = "Admin@Admin.com",
+                PasswordHash = hashedPassword,
                 Role = UserRole.Admin,
                 Departamento = "Administración",
                 CreatedAt = DateTime.UtcNow

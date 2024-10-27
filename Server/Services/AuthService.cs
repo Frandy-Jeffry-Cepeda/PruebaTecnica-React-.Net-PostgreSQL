@@ -20,14 +20,20 @@ namespace Server.Services
             _configuration = configuration;
         }
 
-        public async Task<User> AuthenticateUserAsync(string email, string password)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-            if (user == null || user.PasswordHash != password)
-                return null;
+    public async Task<User> AuthenticateUserAsync(string email, string password)
+    {
+        // Buscar el usuario por correo electrónico
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        if (user == null)
+            return null;
 
-            return user;
-        }
+        // Verificar si la contraseña proporcionada coincide con el hash almacenado
+        bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+        if (!isPasswordValid)
+            return null;
+
+        return user;
+    }
 
         public string GenerateJwtToken(User user)
         {

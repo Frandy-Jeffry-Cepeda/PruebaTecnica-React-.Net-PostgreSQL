@@ -16,7 +16,7 @@ namespace Server.Services
         public async Task<List<UserDto>> GetAllEmployeesAsync()
         {
            var users = await _context.Users
-            .OrderByDescending(user => user.Id) 
+            .OrderBy(user => user.Id) 
             .ToListAsync();
             return users.Select(user => new UserDto
             {
@@ -48,12 +48,14 @@ namespace Server.Services
 
         public async Task<User> CreateEmployeeAsync(RegisterDto registerDto)
         {
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
+
             var newUser = new User
             {
                 FullName = registerDto.FullName,
                 UserName = registerDto.UserName,
                 Email = registerDto.Email,
-                PasswordHash = registerDto.Password,
+                PasswordHash = hashedPassword, 
                 Role = (UserRole)Enum.Parse(typeof(UserRole), registerDto.Role),
                 Departamento = registerDto.Departamento
             };
@@ -73,7 +75,11 @@ namespace Server.Services
             user.Email = updateUserDto.Email;
             user.Departamento = updateUserDto.Departamento;
             user.Role = (UserRole)Enum.Parse(typeof(UserRole), updateUserDto.Role.ToString());
-            user.PasswordHash = updateUserDto.PasswordHash;
+
+            if (!string.IsNullOrEmpty(updateUserDto.PasswordHash) && updateUserDto.PasswordHash != user.PasswordHash)
+            {
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updateUserDto.PasswordHash);
+            }
 
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
