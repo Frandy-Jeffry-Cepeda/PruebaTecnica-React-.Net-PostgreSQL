@@ -51,7 +51,7 @@ export default function UpdateInfoEmployee() {
             Editar Empleado
           </h2>
           <Link
-            to="/admin/dashboard"
+            to="/user/home/info"
             className="rounded-md bg-indigo-600 px-4 py-2 text-white text-sm sm:text-base font-bold hover:bg-indigo-500"
           >
             Volver a Info
